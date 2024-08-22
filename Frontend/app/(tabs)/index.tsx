@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,TextInput, Button, FlatList, TouchableOpacity, } from 'react-native';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/tasks'; // Change this to your backend URL if running on a device
+
+ const MONGO_URL = 'mongodb://localhost:27017/tasks';
 
 export default function App() {
   const [task, setTask] = useState('');
@@ -14,7 +15,7 @@ export default function App() {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(API_URL);
+      const response = await axios.get(MONGO_URL);
       setTasks(response.data);
     } catch (error) {
       console.error(error);
@@ -25,7 +26,7 @@ export default function App() {
     if (task.length > 0) {
       try {
         const newTask = { task };
-        const response = await axios.post(API_URL, newTask);
+        const response = await axios.post(MONGO_URL, newTask);
         setTasks([...tasks, response.data]);
         setTask('');
       } catch (error) {
@@ -36,7 +37,7 @@ export default function App() {
 
   const deleteTask = async (taskId) => {
     try {
-      await axios.delete(`${API_URL}/${taskId}`);
+      await axios.delete(`${MONGO_URL}/${taskId}`);
       setTasks(tasks.filter(task => task._id !== taskId));
     } catch (error) {
       console.error(error);
@@ -74,7 +75,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'purple',
+    backgroundColor: '#f0f8ff',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,

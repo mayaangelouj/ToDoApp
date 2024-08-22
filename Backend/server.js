@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB Connection
-const MONGO_URL = 'your-mongodb-connection-string'; // Replace with your MongoDB connection string
+const MONGO_URL = 'mongodb://localhost:27017/tasks'; // Replace with your MongoDB connection string
 mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -67,7 +67,7 @@ app.delete('/tasks/:id', async (req, res) => {
   }
 });
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+// Start Server //ADD PORT number
+app.listen(21017, () => {
+  console.log(`Server is running on http://localhost:${27017}`);
 });
